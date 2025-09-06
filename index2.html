@@ -2,7 +2,7 @@
 <html lang="uk">
 <head>
   <meta charset="UTF-8">
-  <title>20.1</title>
+  <title>20.3</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 <body>
@@ -21,6 +21,7 @@
         ctx.beginPath();
         ctx.arc(x, y, radius, 0, Math.PI * 2, false);
         if(fillCircle){
+            ctx.fillStyle = "green";
             ctx.fill();
         } else {
             ctx.stroke();
@@ -35,26 +36,29 @@
         this.ySpeed = 0;
     };
 
-    // Малюємо м'яч в його поточної позиції
+    // Зображення
+    let yodaImg = new Image();
+    yodaImg.src = "Yoda.jpg";
+
+    //малюємо
     Ball.prototype.draw = function(){
-        circle(this.x, this.y, 10, true);
+        ctx.drawImage(yodaImg, this.x - 10, this.y - 10, 20, 20);
     };
 
-    //створюємо об'єкт м'яча
-    let ball = newBall();
-    Ball.prototype.move = function(){
-        this.x += this.xSpeed;
-        this.y += this.ySpeed;
-        if(this.x < 0){
-            this.x = width;
-        } else if (this.x > width){
-            this.x = 0;
-        } else if (this.y < 0){
-            this.y = height;
-        } else if (this.y > height){
-            this.y = 0;
-        }
-    };
+//створюємо об'єкт м'яча
+Ball.prototype.move = function(){
+    this.x += this.xSpeed;
+    this.y += this.ySpeed;
+    if(this.x < 0){
+        this.x = width;
+    } else if (this.x > width){
+        this.x = 0;
+    } else if (this.y < 0){
+        this.y = height;
+    } else if (this.y > height){
+        this.y = 0;
+    }
+};
 
     //задаємо напрямок руху по рядку з назвою дії
     Ball.prototype.setDirection = function(direction){
@@ -79,10 +83,10 @@
     //об'єкт для перекладу кодів клавіш в назви дій
     let keyActions = {
         32: "stop",
-        37: "left",
-        38: "up",
-        39: "right",
-        40: "down"
+        65: "left",
+        87: "up",
+        68: "right",
+        83: "down"
     };
 
     //обробник подій keydown, при конжному натисканню клавіші
